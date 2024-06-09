@@ -28,4 +28,26 @@ class BookController extends Controller
         $newBook = Book::create($data);
         return redirect (route('book.index'));
     }
+
+    public function edit(Book $book){
+        return view('book.edit', ['book' => $book]);
+    }
+
+    public function update(Book $book, Request $request){
+        $data = $request->validate ([
+            'title' => 'required',
+            'isbn' => 'required|numeric',
+            'writer' => 'required',
+            'year' => 'required|numeric',
+        ]);
+
+        $book->update($data); 
+        return redirect (route('book.index'))->with('success', 'Update Successfully');
+    }
+
+    public function destroy(Book $book){
+        $book->delete();
+        return redirect (route('book.index'))->with('success', 'Deleted Successfully');
+
+    }
 }
