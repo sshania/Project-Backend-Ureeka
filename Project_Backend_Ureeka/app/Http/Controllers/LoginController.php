@@ -30,13 +30,9 @@ class LoginController extends Controller
 
     public function loginProcess(Request $request){
         if(Auth::attempt($request->only('email','password'))){
-            return redirect('/cobaLogout');
+            return redirect('/book');
         }
         return redirect('/login')->withErrors('These credentials do not match our records.');
-    }
-
-    public function cobaLogout(){
-        return view('cobaLogout');
     }
 
     public function logout(){
